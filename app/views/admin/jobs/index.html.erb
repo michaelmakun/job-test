@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="pull-right">
+    <%= link_to("新增工作", new_admin_job_path, class: "btn btn-primary btn-sm") %>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>工作名称</th>
+      <th>工作地点</th>
+      <th>发布时间</th>
+      <th colspan="2">管理选项</th>
+    </thead>
+    <tbody>
+      <% @jobs.each do |job| %>
+        <tr>
+          <td><%= link_to(job.title, admin_job_path(job)) %></td>
+          <td><%= job.location %></td>
+          <td><%= job.created_at %></td>
+          <td>
+            <%= link_to("编缉", edit_admin_job_path(job),class: "btn btn-success btn-xs") %>
+          </td>
+          <td>
+            <%= link_to("删除", admin_job_path(job), method: :delete, class: "btn btn-danger btn-xs") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
