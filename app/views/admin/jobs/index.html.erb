@@ -8,14 +8,24 @@
       <th>工作名称</th>
       <th>工作地点</th>
       <th>发布时间</th>
-      <th colspan="2">管理选项</th>
+      <th colspan="3">管理选项</th>
     </thead>
     <tbody>
       <% @jobs.each do |job| %>
         <tr>
-          <td><%= link_to(job.title, admin_job_path(job)) %></td>
+          <td>
+            <%= render_job_state(job) %>
+            <%= link_to(job.title, admin_job_path(job)) %>
+          </td>
           <td><%= job.location %></td>
           <td><%= job.created_at %></td>
+          <td>
+            <% if job.hidden? %>
+              <%= link_to("publish", publish_admin_job_path(job), method: :post, class: "btn btn-info btn-xs") %>
+            <% else %>
+              <%= link_to("hide", hide_admin_job_path(job), method: :post, class: "btn btn-warning btn-xs") %>
+            <% end %>
+          </td>
           <td>
             <%= link_to("编缉", edit_admin_job_path(job),class: "btn btn-success btn-xs") %>
           </td>

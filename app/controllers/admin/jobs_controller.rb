@@ -42,6 +42,22 @@ class Admin::JobsController < ApplicationController
     redirect_to admin_jobs_path, alert: "工作删除成功"
   end
 
+  def publish
+    @job = Job.find(params[:id])
+    # if @job.hidden?
+      @job.publish!
+    # end
+    redirect_to admin_jobs_path
+  end
+
+  def hide
+    @job = Job.find(params[:id])
+    # if !@job.hidden?
+      @job.hide!
+    # end
+    redirect_to admin_jobs_path
+  end
+
   private
 
   def job_params
